@@ -13,6 +13,7 @@ def main():
     my_draw.rectangle((0, 0, joystick.width, joystick.height), fill=(255, 0, 0, 100))
     joystick.disp.image(my_image)
     # 잔상이 남지 않는 코드
+    #dktesa
     my_circle = Character(joystick.width, joystick.height)
     my_draw.rectangle((0, 0, joystick.width, joystick.height), fill = (255, 255, 255, 100))
     while True:
