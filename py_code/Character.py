@@ -77,7 +77,7 @@ class Character:
 
         if self.direction=="right":
             self.image = Image.open("./res/ch_a_r.png").resize(self.size)
-            self.bubble[-1].position = (self.position[2], self.position[1]+3, self.position[2]+15, self.position[1]+18)
+            self.bubble[-1].position = [self.position[2], self.position[1]+3, self.position[2]+15, self.position[1]+18]
                 
         else:
             self.image = Image.open("./res/ch_a_l.png").resize(self.size)
@@ -86,4 +86,6 @@ class Character:
 
 
     def mov_bubble(self):
-        self.bubble_manager.move_bubble(self.bubble)
+        if len(self.bubble_manager.bubble_pool.bubble)==0:
+            self.bubble_manager.bubble_pool.create_object()
+        self.bubble_manager.mov_bubble(self.bubble)

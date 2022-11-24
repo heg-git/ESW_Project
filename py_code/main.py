@@ -42,10 +42,10 @@ def main():
         if character.state == 'jump':
             character.jump()
 
+        character.mov_bubble()
         for bubble in character.bubble:
-            character.mov_bubble
             my_map.paste(bubble.image, bubble.position, bubble.image)
-
+        character.mov_bubble()
         my_map.paste(character.image, character.position, character.image)
         joystick.disp.image(my_map)
         

@@ -17,5 +17,5 @@ class BubblePool(ObjectPool):
         return self.bubble.pop(0)
 
     def put_object(self, bubble):
-        print("pool에 남은 버블", len(self.bubble)-1)
         self.bubble.append(bubble)
+        print("pool에 남은 버블", len(self.bubble))

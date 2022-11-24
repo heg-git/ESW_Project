@@ -9,9 +9,14 @@ class BubbleManager(Singleton):
     
     def mov_bubble(self, bubble):
         for b in bubble:
-            if b.direction == "right":
-                b.position[0] +=5
-                b.position[2] +=5
+            if b.move_count==20:
+                self.bubble_pool.put_object(bubble.pop(0))
+                print("bubble 소멸")
+            elif b.direction == "right":
+                b.position[0] +=3
+                b.position[2] +=3
+                b.move_count+=1
             else:
-                b.position[0] -=5
-                b.position[2] -=5
+                b.position[0] -=3
+                b.position[2] -=3
+                b.move_count+=1
