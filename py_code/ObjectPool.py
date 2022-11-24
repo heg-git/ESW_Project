@@ -5,7 +5,7 @@ class ObjectPool(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def take_object(self):
+    def get_object(self):
         pass
 
     @abstractmethod
