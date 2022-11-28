@@ -4,6 +4,7 @@ import random
 from colorsys import hsv_to_rgb
 
 from Character import Character
+from Enemy import Enemy
 from Joystick import Joystick
 from BubbleManager import BubbleManager
 from Bubble import Bubble
@@ -11,9 +12,12 @@ from Bubble import Bubble
 def main():
     joystick = Joystick()
     character = Character()
-    map = Image.open("./res/map2.png").resize((240,240))
+    enemy = []
+    enemy_position=[[205, 215, 225, 235],[170, 177, 190, 197],[170, 138, 190, 158],[170, 102, 190, 122]]
+    for i in range(4):
+        enemy.append(Enemy(enemy_position[i]))
+    map = Image.open("./res/etc/map.png").resize((240,240))
     pressed=False
-    a=0
     while True:
         my_map=map.copy()
         
@@ -43,6 +47,12 @@ def main():
             character.jump()
 
         character.mov_bubble()
+
+
+        for en in enemy:
+            my_map.paste(en.image, en.position, en.image)
+            en.move()
+
         for bubble in character.bubble:
             my_map.paste(bubble.image, bubble.position, bubble.image)
         character.mov_bubble()
