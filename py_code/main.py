@@ -71,12 +71,16 @@ def main():
 
         if not joystick.button_A.value:
             pressed=True
+            print(joystick.button_A.value)
 
         elif joystick.button_A.value and pressed:
             character.attack()
             pressed=False
 
         character.mov_bubble()
+
+        if character.state == 'jump' or character.state == 'fall':
+                character.jump()
 
         for en in enemy:
             my_map.paste(en.image, en.position, en.image)
@@ -89,14 +93,10 @@ def main():
             my_map.paste(character.life_image, (60+(life*10), 5 ,70+(life*10) , 15 ), character.life_image)
         
         character.ground_check(collision)
-
-        if character.state == 'jump' or character.state == 'fall':
-                print(character.state)
-                character.jump()
                     
         character.colision_check(collision)
 
-        character.hit_check(enemy)
+        #character.hit_check(enemy)
 
         my_map.paste(character.image, character.position, character.image)
         joystick.disp.image(my_map)

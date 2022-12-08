@@ -28,12 +28,12 @@ class BubbleManager(Singleton):
                 b.move_count=0
                 self.put_bubble(bubble.pop(0))
             elif b.direction == "right":
-                b.position[0] +=3
-                b.position[2] +=3
+                b.position[0] +=1
+                b.position[2] +=1
                 b.move_count+=1
             else:
-                b.position[0] -=3
-                b.position[2] -=3
+                b.position[0] -=1
+                b.position[2] -=1
                 b.move_count+=1
 
     def hit_bubble(self, bubble, enemy):

@@ -12,7 +12,7 @@ class Character:
         self.flag = 0
         self.count = 0
         self.direction = "right"
-        self.gravity = 5
+        self.gravity = 6
         self.life = 3
         self.life_image=Image.open("./res/etc/life.png").resize((10,10))
         self.bubble_manager = BubbleManager()
@@ -53,7 +53,9 @@ class Character:
             self.position[3] -= 5
 
     def jump(self):
-
+        if self.air:
+            self.state = None
+            return
         if self.count < 8:
             if self.direction=="right":
                 self.image = Image.open("./res/character/ch_right_jump.png").resize(self.size)
@@ -78,7 +80,6 @@ class Character:
             self.count+=1
 
         else:
-            print("ttt")
             if self.direction=="right":
                 self.image = Image.open("./res/character/ch_right_1.png").resize(self.size)
             else:
@@ -109,35 +110,31 @@ class Character:
 
     def colision_check(self, collision):
 
-        if (collision.wall[self.position[0]+12][self.position[3]]==1 and collision.wall[self.position[0]+5][self.position[3]]) or \
-            (collision.wall[self.position[0]+12][self.position[3]]==1 and collision.wall[self.position[2]-5][self.position[3]]):
+
+        if ((collision.wall[self.position[0]+12][self.position[3]]==1 and collision.wall[self.position[0]+5][self.position[3]]) or \
+            (collision.wall[self.position[0]+12][self.position[3]]==1 and collision.wall[self.position[2]-5][self.position[3]])) and self.state!='jump':
+            print(self.state)
             self.state=None
             self.air=False
             self.count=0
 
         #오른쪽 벽 체크
-        if collision.wall[self.position[2]-5][self.position[3]-12]==1 and self.direction=='right':
-            self.i+=1
-            print("오른쪽 충돌",self.i)
-            self.position[0] -=5 
-            self.position[2] -=5
-            if self.air:
-                print("공중에 뜸")
-                self.air=False
-                self.position[1] += 4
-                self.position[3] += 4
+        for i in range(225,240):
+            if self.position[2]-5 == i:
+                print("오른쪽 충돌")
+                self.position[0] -=4
+                self.position[2] -=4
+                self.ground_check(collision)
+        
+
         #왼쪽 벽 체크
-        if collision.wall[self.position[0]+5][self.position[3]-12]==1 and self.direction=='left':
-            print(self.position[0],self.position[3])
-            self.i+=1
-            print("왼쪽 충돌",self.i)
-            self.position[0] +=5
-            self.position[2] +=5
-            if self.air:
-                print("공중에 뜸")
-                self.air=False
-                self.position[1] += 4
-                self.position[3] += 4
+        for i in range(17):
+            if self.position[0]+5 == i:
+                print("왼쪽 충돌")
+                self.position[0] +=4
+                self.position[2] +=4
+                self.ground_check(collision)
+        
 
     def ground_check(self, collision):
         if self.state=='jump':
@@ -155,9 +152,7 @@ class Character:
                 print("공중에 뜸")
                 self.position[1] += 3
                 self.position[3] += 3
-
-        
-        
+                self.air=True
                               
     def hit_check(self, enemy):
         self.bubble_manager.hit_bubble(self.bubble,enemy)
