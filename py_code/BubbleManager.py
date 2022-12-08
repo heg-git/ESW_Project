@@ -1,7 +1,8 @@
 from Singleton import Singleton
 from BubblePool import BubblePool
 from Bubble import Bubble
-
+from PIL import Image
+from Enemy import Enemy
 class BubbleManager(Singleton):
     def __init__(self):
         print("버블 매니저 생성")
@@ -34,3 +35,14 @@ class BubbleManager(Singleton):
                 b.position[0] -=3
                 b.position[2] -=3
                 b.move_count+=1
+
+    def hit_bubble(self, bubble, enemy):
+        for b in bubble:
+            if b.direction == "right":
+                bubble_pos=[b.position[2],int((b.position[1]+b.position[3])/2)]
+                for y in range(enemy[0].position[1],enemy[0].position[3]):
+                    #print("실행")
+                    print(bubble_pos,[enemy[0].position[0],y])
+                    if(bubble_pos==[enemy[0].position[0],y]):
+                        print("hit")
+                        enemy[0].bubbled()

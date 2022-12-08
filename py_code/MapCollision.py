@@ -18,11 +18,38 @@ class MapCollision:
         for i in range(240):
             for j in range(233,240):
                 self.wall[i][j]=1
-        #가운데 기둥1
-        for i in range(60,186):
-            for j in range(198, 201):
+
+        #오른쪽 발판1
+        for i in range(138,201):
+            for j in range(200, 208):
                 self.wall[i][j]=1
-        # for i in range(240):
-        #     for j in range(240):
-        #         print(map[i][j],end='')
-        #     print("")
+
+        #오른쪽 발판2
+        for i in range(138,201):
+            for j in range(161, 172):
+                self.wall[i][j]=1
+
+        #오른쪽 발판3
+        for i in range(138,201):
+            for j in range(117, 128):
+                self.wall[i][j]=1
+        
+        #오른쪽 발판4
+        for i in range(138,201):
+            for j in range(78, 89):
+                self.wall[i][j]=1
+
+        #왼쪽 발판1
+        for i in range(38,102):
+            for j in range(182, 193):
+                self.wall[i][j]=1
+        
+        #왼쪽 발판2
+        for i in range(38,102):
+            for j in range(138, 149):
+                self.wall[i][j]=1
+
+        #왼쪽 발판3
+        for i in range(38,102):
+            for j in range(94, 105):
+                self.wall[i][j]=1
