@@ -8,10 +8,10 @@ class Enemy:
         self.direction = "left"
         self.move_count = 0
         self.flag = 1
-        self.speed = 4
+        self.speed = 5
 
     def move(self):
-        if self.state=='bubbled':
+        if self.state == 'bubbled':
             return 
         if self.move_count<15:
             self.flag = 0 if self.flag else 1
@@ -21,7 +21,7 @@ class Enemy:
                 self.image = Image.open("./res/enemy/en_left_2.png").resize(self.size)
             self.position[0] -= self.speed
             self.position[2] -= self.speed
-            self.move_count+=1
+            self.move_count += 1
             self.direction = "left"
                 
         elif self.move_count<30:
@@ -32,7 +32,7 @@ class Enemy:
                 self.image = Image.open("./res/enemy/en_right_2.png").resize(self.size)
             self.position[0] += self.speed
             self.position[2] += self.speed
-            self.move_count+=1
+            self.move_count += 1
             self.direction = "right"
         else:
             self.move_count=0

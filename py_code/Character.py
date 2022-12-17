@@ -5,7 +5,7 @@ from BubbleManager import BubbleManager
 class Character:
     def __init__(self):
         self.state = None
-        self.position = np.array([30, 210, 53, 233])
+        self.position = np.array([15, 210, 38, 233])
         self.size = (23, 23)
         self.image = Image.open("./res/character/ch_right_1.png").resize(self.size)
         self.flag = 0
@@ -16,7 +16,7 @@ class Character:
         self.life_image = Image.open("./res/etc/life.png").resize((10,10))
         self.bubble_manager = BubbleManager()
         self.bubble = []
-        self.speed = 4
+        self.speed = 5
         self.air = False
 
     def move(self, command):
@@ -117,8 +117,8 @@ class Character:
         for i in range(225,240):
             if self.position[2]-5 == i:
                 print("오른쪽 충돌")
-                self.position[0] -=4
-                self.position[2] -=4
+                self.position[0] -= 5
+                self.position[2] -= 5
                 self.ground_check(collision)
         
 
@@ -126,8 +126,8 @@ class Character:
         for i in range(17):
             if self.position[0]+5 == i:
                 print("왼쪽 충돌")
-                self.position[0] +=4
-                self.position[2] +=4
+                self.position[0] += 5
+                self.position[2] += 5
                 self.ground_check(collision)
         
 
@@ -165,4 +165,4 @@ class Character:
     def respawn(self):
         self.image = Image.open("./res/character/ch_right_1.png").resize(self.size)
         self.state = None
-        self.position = [30, 210, 53, 233]
+        self.position = [15, 210, 38, 233]
