@@ -21,35 +21,30 @@ class MapCollision:
 
         #오른쪽 발판1
         for i in range(138,201):
-            for j in range(200, 208):
+            for j in range(196, 202):
                 self.wall[i][j]=1
 
         #오른쪽 발판2
         for i in range(138,201):
-            for j in range(161, 172):
+            for j in range(149, 155):
                 self.wall[i][j]=1
 
         #오른쪽 발판3
         for i in range(138,201):
-            for j in range(117, 128):
-                self.wall[i][j]=1
-        
-        #오른쪽 발판4
-        for i in range(138,201):
-            for j in range(78, 89):
+            for j in range(99, 105):
                 self.wall[i][j]=1
 
         #왼쪽 발판1
         for i in range(38,102):
-            for j in range(182, 193):
+            for j in range(175, 180):
                 self.wall[i][j]=1
         
         #왼쪽 발판2
         for i in range(38,102):
-            for j in range(138, 149):
+            for j in range(123, 129):
                 self.wall[i][j]=1
 
         #왼쪽 발판3
         for i in range(38,102):
-            for j in range(94, 105):
+            for j in range(73, 79):
                 self.wall[i][j]=1
