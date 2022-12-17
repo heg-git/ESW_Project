@@ -9,8 +9,11 @@ from MapCollision import MapCollision
 from Joystick import Joystick
 
 def main():
-    fnt = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 15)
-    fnt2 = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
+    fnt1 = ImageFont.truetype("./res/etc/DungGeunMo.ttf", 20)
+    fnt2 = ImageFont.truetype("./res/etc/DungGeunMo.ttf", 20)
+    fnt3 = ImageFont.truetype("./res/etc/DungGeunMo.ttf", 15)
+    fnt4 = ImageFont.truetype("./res/etc/DungGeunMo.ttf", 16)
+    
     joystick = Joystick()
     character = Character()
     enemy = []
@@ -20,10 +23,24 @@ def main():
         enemy.append(Enemy(enemy_position[i]))
         #enemy[-1].bubbled()
     map = Image.open("./res/etc/map3.png").resize((240,240))
+    game_clear = Image.open("./res/etc/game_clear.png").resize((240,240))
+    game_over = Image.open("./res/etc/game_over.png").resize((240,240))
     collision=MapCollision()
     pressed=False
+    start=0
+    start = Image.open("./res/etc/start.png").resize((240,240))
 
-    my_draw=ImageDraw.Draw(map)
+    ImageDraw.Draw(start).text((60, 180), "ESW PROJECT", font=fnt1, fill=(255,0 ,0))
+    ImageDraw.Draw(start).text((27, 205),("PRESS A TO START!!") ,font=fnt2, fill=(255,255,255))
+
+    joystick.disp.image(start)
+    while True:  
+        if not joystick.button_A.value:
+            pressed=True
+        elif joystick.button_A.value and pressed:
+            pressed=False
+            break
+    
     # #왼쪽 기둥
     # my_draw.rectangle((0,20,16,240), fill=(255, 255, 255, 100))
     # #땅
@@ -45,14 +62,12 @@ def main():
     # #왼쪽 발판3
     # my_draw.rectangle((38,73,101,78), fill=(255, 255, 255, 100))
 
-    joystick.disp.image(map)
-    my_draw.text((25, 2), "LIFE", font=fnt, fill=(0,255,0))
-    rectangle = ImageDraw.Draw(map)
-
+    #joystick.disp.image(map)
+    ImageDraw.Draw(map).text((25, 2), "LIFE", font=fnt3, fill=(0,255,0))
+    ImageDraw.Draw(map).text((105, 2),("HIGH SCORE "),font=fnt4, fill=(255,0,0))
     while True:
-        rectangle.rectangle((110, 2, 220, 15), fill=(255,255,255))
-        rectangle.text((110, 2),("HIGH SCORE: "+str(score)),font=fnt2, fill=(255,0,0))
         my_map=map.copy()
+        ImageDraw.Draw(my_map).text((190, 2), str(score),font=fnt4)
         
         # if not joystick.button_U.value:  # up pressed
         #     character.move('up')
@@ -74,7 +89,7 @@ def main():
 
         elif joystick.button_A.value and pressed:
             character.attack()
-            score += 10
+            score += 5
             pressed=False
 
         character.mov_bubble()
@@ -92,27 +107,31 @@ def main():
         character.ground_check(collision)
         character.colision_check(collision)
         result=character.enemy_hit(enemy)
-        if result == None:
+
+        if result == -2:
             pass
         elif result == -1:
-            print("죽음")
             character.life -= 1
-            score -= 50
+            score -= 100
             character.respawn()
         else:
-            print(result, "번 째 적 죽음")
+            score += 300
             enemy.pop(result)
 
-        character.bubble_hit(enemy)
+        score += character.bubble_hit(enemy)
         
         for life in range(character.life):
             my_map.paste(character.life_image, (60+(life*10), 5 ,70+(life*10) , 15 ), character.life_image)
 
-        if character.life < 0 :
-            break
-
         my_map.paste(character.image, character.position, character.image)
 
+        if len(enemy)==0:
+            joystick.disp.image(game_clear)
+            break
+        
+        if character.life < 0 :
+            joystick.disp.image(game_over)
+            break
 
         joystick.disp.image(my_map)
         

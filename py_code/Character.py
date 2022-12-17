@@ -149,7 +149,7 @@ class Character:
                 self.air=True
                               
     def bubble_hit(self, enemy):
-        self.bubble_manager.bubble_hit(self.bubble, enemy)
+        return self.bubble_manager.bubble_hit(self.bubble, enemy)
 
     def enemy_hit(self, enemy):
         for idx, en in enumerate(enemy):
@@ -160,6 +160,7 @@ class Character:
                             if en.state == 'bubbled':
                                 return idx
                             return -1
+        return -2
 
     def respawn(self):
         self.image = Image.open("./res/character/ch_right_1.png").resize(self.size)

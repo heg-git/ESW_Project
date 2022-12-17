@@ -44,6 +44,8 @@ class BubbleManager(Singleton):
                         for eyp in range(en.position[1]+3, en.position[3]-3):
                             if bxp == exp and b.position[1]+6 == eyp:
                                 en.bubbled()
+                                b.move_count=0
                                 self.put_bubble(bubble.pop(idx))
-                                return idx
+                                return 50
+        return 0
                                 
