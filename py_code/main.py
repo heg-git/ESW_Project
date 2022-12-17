@@ -19,7 +19,7 @@ def main():
     
     joystick = Joystick()
     character = Character()
-    enemy_manager = EnemyManager()
+    enemy_manager = EnemyManager(1, 1)
     collision = MapCollision(1)    
 
     map = Image.open("./res/etc/map1.png").resize((240,240))
@@ -94,7 +94,7 @@ def main():
                 character.jump()
 
         enemy_manager.paste(my_map)
-        enemy_manager.move()
+        enemy_manager.move(character.position)
         enemy_manager.ground_check(collision)
         enemy_manager.jump()
 
@@ -103,7 +103,8 @@ def main():
         
         character.ground_check(collision)
         character.colision_check(collision)
-        result=character.enemy_hit(enemy_manager.enemy1)
+        result=character.enemy_hit(enemy_manager.enemy)
+        #result=character.enemy_hit()
 
         if result == -2:
             pass
@@ -113,16 +114,16 @@ def main():
             character.respawn()
         else:
             score += 300
-            enemy_manager.enemy1.pop(result)
+            enemy_manager.enemy.pop(result)
 
-        score += character.bubble_hit(enemy_manager.enemy1)
+        score += character.bubble_hit(enemy_manager.enemy)
         
         for life in range(character.life):
             my_map.paste(character.life_image, (60+(life*10), 5 ,70+(life*10) , 15 ), character.life_image)
 
         my_map.paste(character.image, character.position, character.image)
 
-        if len(enemy_manager.enemy1)==0:
+        if len(enemy_manager.enemy)==0:
             break
 
         if character.life < 0 :
@@ -199,7 +200,7 @@ def main():
             score += 500
             boss.pop(result)
 
-        score += character.bubble_hit(enemy_manager.enemy1)
+        score += character.bubble_hit(enemy_manager.enemy)
         
         for life in range(character.life):
             my_map.paste(character.life_image, (60+(life*10), 5 ,70+(life*10) , 15 ), character.life_image)

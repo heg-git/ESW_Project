@@ -6,13 +6,11 @@ class Enemy1:
         self.position = position
         self.move_count = 0
         self.flag = 1
-        self.idx = idx
         self.distance = int(distance/2)
-        self.time = 0
         self.jump = True
         self.jump_count = 0
 
-        if self.idx%2==0:
+        if idx%2==0:
             self.direction = "left"
             self.image = Image.open("./res/enemy1/en_left_1.png").resize(self.size)
         else:
@@ -22,7 +20,6 @@ class Enemy1:
 
     def bubbled(self):
         self.state = "bubbled"
-        #self.time = time
         if self.direction == "right":
             self.image = Image.open("./res/enemy1/en_right_bubbled.png").resize(self.size)
         else:
