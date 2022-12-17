@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image
 from BubbleManager import BubbleManager
 
 class Character:

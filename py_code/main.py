@@ -7,6 +7,7 @@ from Character import Character
 from Enemy import Enemy
 from MapCollision import MapCollision
 from Joystick import Joystick
+from EnemyManager import EnemyManager
 
 def main():
     fnt1 = ImageFont.truetype("./res/etc/DungGeunMo.ttf", 20)
@@ -16,12 +17,15 @@ def main():
     
     joystick = Joystick()
     character = Character()
+    enemy_manager = EnemyManager(5)
     enemy = []
     enemy_position=np.array([[140, 213, 160, 233],[170, 177, 190, 197],[170, 140, 190, 160],[170, 100, 190, 120]])
     score = 0
+    
     for i in range(4):
         enemy.append(Enemy(enemy_position[i]))
         #enemy[-1].bubbled()
+
     map = Image.open("./res/etc/map3.png").resize((240,240))
     game_clear = Image.open("./res/etc/game_clear.png").resize((240,240))
     game_over = Image.open("./res/etc/game_over.png").resize((240,240))

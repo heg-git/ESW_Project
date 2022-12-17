@@ -1,14 +1,13 @@
+from Enemy import Enemy
 from PIL import Image
-class Enemy:
-    def __init__(self, position):
-        self.state = None
-        self.size = (20,20)
-        self.image = Image.open("./res/enemy/en_left_1.png").resize(self.size)
-        self.position = position
-        self.direction = "left"
-        self.move_count = 0
-        self.flag = 1
-        self.speed = 4
+import random
+
+class EnemyManager:
+    def __init__(self, num):
+        self.enemy = []
+        
+        for i in range(num):
+            self.enemy.append(Enemy(), )
 
     def move(self):
         if self.state=='bubbled':

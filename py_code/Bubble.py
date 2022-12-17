@@ -5,7 +5,7 @@ class Bubble:
         self.size = (15,15)
         self.image = Image.open("./res/etc/bubble.png").resize(self.size)
         self.position = np.zeros(4)
-        self.speed = 3
+        self.speed = 2
         self.direction = "right"
         self.move_count = 0
     
