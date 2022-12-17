@@ -1,5 +1,5 @@
 from PIL import Image
-class Enemy2:
+class Enemy1:
     def __init__(self, idx, position, distance):
         self.state = None
         self.size = (20,20)
