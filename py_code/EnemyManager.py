@@ -3,7 +3,8 @@ from Enemy2 import Enemy2
 from PIL import Image
 import random
 import numpy as np
-class EnemyManager:
+class EnemyManager():
+      
     def __init__(self, en1, en2):
         #create enemies in array
         self.en1 = en1
@@ -77,7 +78,7 @@ class EnemyManager:
                 else:
                     en.flag=0
 
-                en.state = "right"
+                en.direction = "right"
                 en.position[0] += speed
                 en.position[2] += speed
 
@@ -90,7 +91,7 @@ class EnemyManager:
                 else:
                     en.flag=0
 
-                en.state = "left"
+                en.direction = "left"
                 en.position[0] -= speed
                 en.position[2] -= speed
 

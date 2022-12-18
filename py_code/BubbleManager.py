@@ -1,8 +1,7 @@
-from Singleton import Singleton
 from BubblePool import BubblePool
 from Bubble import Bubble
 
-class BubbleManager(Singleton):
+class BubbleManager():
     #create 15 bubblepool
     def __init__(self):
         self.bubble_pool = BubblePool(15)
@@ -39,10 +38,10 @@ class BubbleManager(Singleton):
     def bubble_hit(self, bubble, enemy):
         for idx, b in enumerate(bubble):
             for en in enemy:
-                for bxp in range(b.position[0]+4, b.position[2]-4):
-                    for exp in range(en.position[0]+5, en.position[2]-5):
-                        for eyp in range(en.position[1]+3, en.position[3]-3):
-                            if bxp == exp and b.position[1]+6 == eyp:
+                for b_x in range(b.position[0]+4, b.position[2]-4):
+                    for en_x in range(en.position[0]+5, en.position[2]-5):
+                        for en_y in range(en.position[1]+3, en.position[3]-3):
+                            if b_x == en_x and b.position[1]+6 == en_y:
                                 en.bubbled()
                                 b.move_count=0
                                 self.put_bubble(bubble.pop(idx))

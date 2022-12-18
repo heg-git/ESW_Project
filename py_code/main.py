@@ -18,13 +18,13 @@ def main():
     #create object for game
     joystick = Joystick()
     character = Character()
-    enemy_manager = EnemyManager(4, 2)
-    collision = MapCollision(1)
-
-    #stage 1 setting
-    map = Image.open("./res/etc/map1.png").resize((240,240))
     start = Image.open("./res/etc/start.png").resize((240,240))
     game_clear = Image.open("./res/etc/game_clear.png").resize((240,177))
+
+    #stage 1 setting
+    enemy_manager = EnemyManager(4, 2)
+    collision = MapCollision(1)
+    map = Image.open("./res/etc/map1.png").resize((240,240))
 
     ImageDraw.Draw(start).text((60, 180), "ESW PROJECT", font=fnt1, fill=(255,0 ,0))
     ImageDraw.Draw(start).text((27, 205),("PRESS A TO START!!") ,font=fnt1, fill=(255,255,255))
@@ -118,12 +118,11 @@ def main():
         ImageDraw.Draw(my_map).text((190, 2), str(score),font=fnt3)
         
         #game event
-        
         #if enemy does not exist go to next stage
         if len(enemy_manager.enemy) == 0:
             break
 
-        #if character deat 3 time game over
+        #if character death 3 time game over
         elif character.life == 0 :
             ImageDraw.Draw(my_map).rectangle((0, 0, 240, 240), fill=(0, 0, 0))
             ImageDraw.Draw(my_map).text((30, 75), "GAME OVER", font=fnt4, fill=(255, 255, 255))
@@ -171,15 +170,12 @@ def main():
 
         if character.state == "jump" or character.state == "fall":
                 character.jump()
-
-        character.mov_bubble()
-        boss[0].move()
         
         #character event
+        character.mov_bubble()
         character.ground_check(collision)
         character.colision_check(collision)
-        character.bubble_hit(boss)
-
+        
         #character <-> boss event
         result = character.enemy_hit(boss)
         #boss collision
@@ -191,6 +187,7 @@ def main():
         elif result == 0:
             score += 5000
             boss.pop(result)
+        score+=character.bubble_hit(boss)
         
         #if boss killed disp clear stage and exit
         if len(boss)==0:
@@ -224,7 +221,8 @@ def main():
         #enemy event
         enemy_manager.move(character.position)
         enemy_manager.ground_check(collision)
-        enemy_manager.jump()    
+        enemy_manager.jump()
+        boss[0].move()
     
         #draw section
         

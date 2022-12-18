@@ -20,6 +20,6 @@ class Enemy2:
     def bubbled(self):
         self.state = "bubbled"
         if self.direction == "right":
-            self.image = Image.open("./res/enemy2/en2_right_1.png").resize(self.size)
+            self.image = Image.open("./res/enemy2/en2_right_bubbled.png").resize(self.size)
         else:
-            self.image = Image.open("./res/enemy2/en2_left_1.png").resize(self.size)
+            self.image = Image.open("./res/enemy2/en2_left_bubbled.png").resize(self.size)

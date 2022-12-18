@@ -147,10 +147,10 @@ class Character:
     #check character <-> enemy collision
     def enemy_hit(self, enemy):
         for idx, en in enumerate(enemy):
-            for cxp in range(self.position[0]+5, self.position[2]-5):
-                for exp in range(en.position[0]+5, en.position[2]-5):
-                    for eyp in range(en.position[1]+5, en.position[3]-5):
-                        if cxp == exp and self.position[1]+12==eyp:
+            for ch_x in range(self.position[0]+5, self.position[2]-5):
+                for en_x in range(en.position[0]+5, en.position[2]-5):
+                    for en_y in range(en.position[1]+5, en.position[3]-5):
+                        if ch_x == en_x and self.position[1]+12==en_y:
                             if en.state == 'bubbled':
                                 return idx
                             return -1

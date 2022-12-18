@@ -75,6 +75,10 @@ class Boss:
     #bubble hit
     def bubbled(self):
         if self.hp==0:
+            if self.move_count < 52:
+                self.image = Image.open("./res/boss/boss_left_bubbled.png").resize(self.size)
+            else:
+                self.image = Image.open("./res/boss/boss_right_bubbled.png").resize(self.size)
             self.state="bubbled"
         self.hp-=1
         
