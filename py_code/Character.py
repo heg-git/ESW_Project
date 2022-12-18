@@ -158,6 +158,7 @@ class Character:
                     for eyp in range(en.position[1]+5, en.position[3]-5):
                         if cxp == exp and self.position[1]+12==eyp:
                             if en.state == 'bubbled':
+                                print(idx)
                                 return idx
                             return -1
         return -2

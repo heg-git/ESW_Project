@@ -26,7 +26,6 @@ class EnemyManager:
 
     
     def move(self, character_position):
-        
         for en in self.enemy[:self.en1]:
             
             speed = random.randrange(4,8)
@@ -134,7 +133,7 @@ class EnemyManager:
             if en.state=="bubbled" or en.position[1]<30:
                 en.jump=False
                 continue
-            num = random.randrange(0, 15)
+            num = random.randrange(0, 20)
             if num==0 and en.state != "fall":
                 en.jump=True
             if en.jump:

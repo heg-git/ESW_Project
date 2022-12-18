@@ -3,24 +3,24 @@ from BubblePool import BubblePool
 from Bubble import Bubble
 
 class BubbleManager(Singleton):
+    #create 15 bubblepool
     def __init__(self):
-        print("버블 매니저 생성")
         self.bubble_pool = BubblePool(15)
 
+    #create new 10 bubble
     def create_bubble(self):
-        print("버블 10개추가생성")
         for i in range(10):
             self.bubble_pool.bubble.append(Bubble())
 
+    #get bubble from pool
     def get_bubble(self):
-        print("pool에 남은 버블", len(self.bubble_pool.bubble)-1)
         return self.bubble_pool.bubble.pop(0)
 
+    #put bubble at pool
     def put_bubble(self, bubble):
         self.bubble_pool.bubble.append(bubble)
-        print("pool에 남은 버블", len(self.bubble_pool.bubble))
 
-
+    #mov bubble   
     def mov_bubble(self, bubble):
         for b in bubble:
             if b.move_count==12:
@@ -35,6 +35,7 @@ class BubbleManager(Singleton):
                 b.position[2] -= b.speed
                 b.move_count+=1
 
+    #check if bubble hit enemy
     def bubble_hit(self, bubble, enemy):
         for idx, b in enumerate(bubble):
             for en in enemy:
