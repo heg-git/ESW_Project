@@ -5,29 +5,27 @@ import random
 import numpy as np
 class EnemyManager:
     def __init__(self, en1, en2):
+        #create enemies in array
         self.en1 = en1
         self.en2 = en2
         self.enemy = []
-        #self.enemy2 = []
         self.enemy1_position=np.array([[200, 213, 220, 233],[40, 155, 60, 175], [180, 127, 200, 147],[40, 50, 60, 70]])
         self.enemy2_position=np.array([[15, 60, 35, 80],[190, 60, 210, 80]])
         self.create_enemy(self.en1, self.en2)
-        #self.create_enemy2(en2)
-
+    
+    #create enemy1, enemy2
     def create_enemy(self, en1, en2):
         for i in range(en1):
             self.enemy.append(Enemy1(i, self.enemy1_position[i], 54))
         
         for i in range(en2):
             self.enemy.append(Enemy2(i, self.enemy2_position[i]))
-    # def create_enemy2(self, num):
-    #     for i in range(num):
-    #         self.enemy2.append(Enemy2(i, self.enemy2_position[i]))
 
-    
+    #move enemy1, enemy2
     def move(self, character_position):
+        
+        #move enemy1
         for en in self.enemy[:self.en1]:
-            
             speed = random.randrange(4,8)
 
             if en.state == "bubbled":
@@ -58,30 +56,32 @@ class EnemyManager:
             else:
                 en.move_count=0
 
-        
+        #move enemy2
         for en in self.enemy[self.en1:]:
-    
             speed = 2
 
             if en.state == "bubbled":
                 continue
+
             ch_x = int((character_position[0]+character_position[2])/2)
             ch_y = int((character_position[1]+character_position[3])/2)
-            
             en_x = int((en.position[0]+en.position[2])/2)
             en_y = int((en.position[1]+en.position[3])/2)
 
+            #go right if en_x < ch_x
             if en_x < ch_x:
                 if en.flag < 4:
                     en.image = Image.open("./res/enemy2/en2_right_1.png").resize(en.size)
-                
                 elif en.flag <8:
                     en.image = Image.open("./res/enemy2/en2_right_2.png").resize(en.size)
                 else:
                     en.flag=0
+
+                en.state = "right"
                 en.position[0] += speed
                 en.position[2] += speed
 
+            #go left if en_x > ch_x
             elif en_x > ch_x:
                 if en.flag < 4:
                     en.image = Image.open("./res/enemy2/en2_left_1.png").resize(en.size)
@@ -89,24 +89,30 @@ class EnemyManager:
                     en.image = Image.open("./res/enemy2/en2_left_2.png").resize(en.size)
                 else:
                     en.flag=0
+
+                en.state = "left"
                 en.position[0] -= speed
                 en.position[2] -= speed
-            
+
+            #go down if en_y < ch_y
             if en_y < ch_y:
                 en.position[1] += speed
                 en.position[3] += speed
 
+            #go up if en_y > ch_y
             elif en_y > ch_y:
                 en.position[1] -= speed
                 en.position[3] -= speed
-            
+
             en.flag+=1
 
 
+    #draw all enemy
     def paste(self, map):
         for en in self.enemy:
             map.paste(en.image, en.position, en.image)
         
+    #ground check for enemy1
     def ground_check(self, collision):
         for en in self.enemy[:self.en1]:
             if(collision.wall[en.position[2]-5][en.position[3]]==0 and
@@ -127,7 +133,8 @@ class EnemyManager:
                 if en.position[0] == i:
                     en.position[0] += 5
                     en.position[2] += 5
-                    
+
+    #2% chance to jump (for enemy1)
     def jump(self):
         for en in self.enemy[:self.en1]:
             if en.state=="bubbled" or en.position[1]<30:

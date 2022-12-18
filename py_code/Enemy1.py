@@ -10,6 +10,7 @@ class Enemy1:
         self.jump = True
         self.jump_count = 0
 
+        # dicision direction
         if idx%2==0:
             self.direction = "left"
             self.image = Image.open("./res/enemy1/en_left_1.png").resize(self.size)
@@ -18,6 +19,7 @@ class Enemy1:
             self.image = Image.open("./res/enemy1/en_right_1.png").resize(self.size)
             self.move_count = self.distance
 
+    # make bubble state
     def bubbled(self):
         self.state = "bubbled"
         if self.direction == "right":

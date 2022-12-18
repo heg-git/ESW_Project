@@ -8,6 +8,7 @@ class Enemy2:
         self.move_count = 0
         self.flag = 0
         
+        # dicision direction
         if idx%2==0:
             self.image = Image.open("./res/enemy2/en2_right_1.png").resize(self.size)
             self.direction = "right"
@@ -15,6 +16,7 @@ class Enemy2:
             self.image = Image.open("./res/enemy2/en2_left_1.png").resize(self.size)
             self.direction = "left"
 
+    # make bubble state
     def bubbled(self):
         self.state = "bubbled"
         if self.direction == "right":
